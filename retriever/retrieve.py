@@ -1,3 +1,9 @@
+"""
+Retrieves - downloads via CSW calls - XML records from Blue Cloud
+
+Currently downloads 156,717 records.
+
+"""
 from owslib.csw import CatalogueServiceWeb
 import lxml.etree as etree
 from pathlib import Path
@@ -10,10 +16,10 @@ if __name__ == '__main__':
 
     total_records = 156717
     batch_size = 100
-    start = 0
+    start = 147860
     dir_size = 10000
     dir_prefix = "records_"
-    dir_count = 0
+    dir_count = 17
 
     dir_name = dir_prefix + str(dir_count).zfill(6)
     Path.mkdir(dir_name, exist_ok=True)
@@ -35,6 +41,10 @@ if __name__ == '__main__':
             # print(csw.records[x].title)
             content = etree.fromstring(csw.records[x].xml)
             etree.indent(content, space="\t")
+
+            # cater for file names with '/' in them
+            if "/" in x:
+                Path.mkdir(Path(dir_name) / Path(x.split("/")[0]), exist_ok=True)
             open(f"{dir_name}/{x}.xml", "w").write(etree.tostring(content, pretty_print=True).decode())
 
             batch_rec_counter += 1
@@ -50,9 +60,3 @@ if __name__ == '__main__':
         print()
 
         start = start + batch_size
-
-"""
-C4FCB80C939B2B9DC3E9686BCDB67507780799C3
-a0e3200f-e640-4521-b251-25c69d81e45e
-7be513ae-5089-4c23-806f-9f420ddf1001
-"""
