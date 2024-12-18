@@ -30,6 +30,9 @@ FROM_DIRS = [
     RECORDS_DIR / "records" / "records_000016",
     RECORDS_DIR / "records" / "records_000017",
     RECORDS_DIR / "records" / "records_000018",
+    RECORDS_DIR / "capital",
+    RECORDS_DIR / "ifremer",
+    RECORDS_DIR / "paleoclimatolog",
 
 ]
 
@@ -49,24 +52,43 @@ TO_DIR = Path(RECORDS_DIR / "paleoclimatolog")
 # <gco:CharacterString>Geological Survey Ireland</gco:CharacterString>
 
 i = 0
+j = 0
 for dir in FROM_DIRS:
     print(dir)
     for record in dir.glob("**/*.xml"):
         print(record.name)
 
-        # Title matching
-        et = etree.parse(record)
-        title = et.xpath(
-            f"//gmd:title/gco:CharacterString/text()",
-            namespaces=namespaces,
-        )
-        if len(title) > 0:
-            if title[0].startswith("NOAA/WDS Paleoclimatolog"):
-                i += 1
-                record.rename(TO_DIR / record.name)
-                print(f"moved: {i}")
+        # # Party email matching
+        # et = etree.parse(record)
+        # party_email = et.xpath(
+        #     f"//gmd:CI_ResponsibleParty/gmd:contactInfo/gmd:CI_Contact/gmd:onlineResource/gmd:CI_OnlineResource/gmd:linkage/gmd:URL/text()",
+        #     namespaces=namespaces,
+        # )
+        #
+        # if len(party_email) > 0:
+        #     print(party_email[0])
+        #     if party_email[0] == "http://marine.copernicus.eu/":
+        #         i += 1
+        #         record.rename(Path(RECORDS_DIR / "cmems") / record.name)
+        #         print(f"moved: {i} CMEMS")
+        #     elif party_email[0] == "https://land.copernicus.eu/global/":
+        #         j += 1
+        #         record.rename(Path(RECORDS_DIR / "cmems-non") / record.name)
+        #         print(f"moved: {j} non-CMEMS")
 
-        # Uppper case file name
+        # # Title matching
+        # et = etree.parse(record)
+        # title = et.xpath(
+        #     f"//gmd:title/gco:CharacterString/text()",
+        #     namespaces=namespaces,
+        # )
+        # if len(title) > 0:
+        #     if title[0].startswith("NOAA/WDS Paleoclimatolog"):
+        #         i += 1
+        #         record.rename(TO_DIR / record.name)
+        #         print(f"moved: {i}")
+
+        # # Uppper case file name
         # for l in str(record.name):
         #   if l.isupper():
         #       record.rename(TO_DIR / record.name)
