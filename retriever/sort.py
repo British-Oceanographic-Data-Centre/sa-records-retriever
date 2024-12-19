@@ -56,7 +56,12 @@ j = 0
 for dir in FROM_DIRS:
     print(dir)
     for record in dir.glob("**/*.xml"):
-        print(record.name)
+        print(record)
+
+        # # APEX Floats
+        # txt = record.read_text()
+        # if "APEX Profiling Float - " in txt:
+        #     record.rename(Path(RECORDS_DIR / "apex") / record.name)
 
         # # Party email matching
         # et = etree.parse(record)
