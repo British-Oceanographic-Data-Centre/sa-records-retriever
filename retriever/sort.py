@@ -39,13 +39,13 @@ FROM_DIRS = [
 TO_DIR = Path(RECORDS_DIR / "paleoclimatolog")
 
 
-# <gco:CharacterString>ARGO</gco:CharacterString>
+# <gco:CharacterString>ARGO</gco:CharacterString
 # <gco:CharacterString>CMEMS</gco:CharacterString>
 # <gco:CharacterString>AOML</gco:CharacterString>
 # <gco:CharacterString>CSIO</gco:CharacterString>
 # <gco:CharacterString>NOAA/PMEL</gco:CharacterString>
 # <gco:CharacterString>NOAA National Centers for Environmental Information</gco:CharacterString>
-# <gco:CharacterString>EMODnet Chemistry</gco:CharacterString>
+# <gco:CharacterString>EMODnet Chemistry </gco:CharacterString>
 # <gco:CharacterString>JAMSTEC</gco:CharacterString>
 # <gco:CharacterString>VITO NV</gco:CharacterString>
 # <gco:CharacterString>NASA Goddard Space Flight Center, Earth Science Data and Information System</gco:CharacterString>
@@ -57,6 +57,13 @@ for dir in FROM_DIRS:
     print(dir)
     for record in dir.glob("**/*.xml"):
         print(record)
+
+        # # NEMO Floats
+        # txt = record.read_text()
+        # if "NEMO Profiling Float - " in txt:
+        #     i += 1
+        #     print(f"Moved {i}")
+        #     record.rename(Path(RECORDS_DIR / "nemo") / record.name)
 
         # # APEX Floats
         # txt = record.read_text()
