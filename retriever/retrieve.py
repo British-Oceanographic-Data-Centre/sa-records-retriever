@@ -19,14 +19,16 @@ if __name__ == "__main__":
     offset = 0
     dir_size = 10000
     base_dir = Path("xml_files")
-    dir_count = 1
-    dir_name = base_dir / f"records_{str(dir_count).zfill(6)}"
-
-    Path.mkdir(dir_name, exist_ok=True)
+    dir_count = 0
     rec_no = 0
 
     while True:
         print(f"starting from record {offset}")
+
+        if rec_no % dir_size == 0:
+            dir_count += 1
+            dir_name = base_dir / f"records_{str(dir_count).zfill(6)}"
+            Path.mkdir(dir_name, exist_ok=True)
 
         csw.getrecords2(
             resulttype="results",
@@ -54,11 +56,6 @@ if __name__ == "__main__":
             batch_rec_counter += 1
             rec_no = offset + batch_rec_counter
             print(f"written rec. no {rec_no}")
-
-            if rec_no >= dir_size:
-                dir_count += 1
-                dir_name = base_dir / f"records_{str(dir_count).zfill(6)}"
-                Path.mkdir(dir_name, exist_ok=True)
 
         offset = offset + batch_size
     print("Processing complete.")
