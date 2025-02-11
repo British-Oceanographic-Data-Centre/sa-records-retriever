@@ -55,7 +55,7 @@ if __name__ == "__main__":
             rec_no = offset + batch_rec_counter
             print(f"written rec. no {rec_no}")
 
-            if (offset + rec_no - dir_size) >= offset:
+            if rec_no >= dir_size:
                 dir_count += 1
                 dir_name = base_dir / f"records_{str(dir_count).zfill(6)}"
                 Path.mkdir(dir_name, exist_ok=True)
