@@ -4,10 +4,10 @@ FROM python:3.11
 
 RUN pip install poetry
 
-COPY sa-records-retriever-main/pyproject.toml sa-records-retriever-main/poetry.lock /app/
-COPY sa-records-retriever-main/retriever /app/retriever
+COPY pyproject.toml poetry.lock /app/
+COPY retriever /app/retriever
 WORKDIR /app/
 
-RUN poetry install
+RUN poetry install --no-root
 
-CMD [ "poetry", "run", "python", "retriever/deduplicate.py" ]
+CMD [ "poetry", "run", "python", "retriever/retrieve.py" ]
