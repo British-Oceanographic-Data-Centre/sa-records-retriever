@@ -15,7 +15,7 @@ if __name__ == "__main__":
 
     csw = CatalogueServiceWeb(url, timeout=50)
 
-    batch_size = 100
+    batch_size = 1000
     offset = 0
     dir_size = 10000
     base_dir = Path("xml_files")
