@@ -16,10 +16,10 @@ if __name__ == '__main__':
 
     total_records = 156717
     batch_size = 100
-    start = 147860
+    start = 0
     dir_size = 10000
-    dir_prefix = "records_"
-    dir_count = 17
+    dir_prefix = "xml_files/records_"
+    dir_count = 1
 
     dir_name = dir_prefix + str(dir_count).zfill(6)
     Path.mkdir(dir_name, exist_ok=True)
@@ -56,7 +56,6 @@ if __name__ == '__main__':
                 dir_name = dir_prefix + str(dir_count).zfill(6)
                 Path.mkdir(dir_name, exist_ok=True)
 
-        print(f"processed records")
-        print()
+        print("processed records")
 
         start = start + batch_size
