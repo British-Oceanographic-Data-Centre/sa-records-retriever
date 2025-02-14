@@ -1,0 +1,12 @@
+# Docker compose used to run the Dockerfile.
+services:
+  worker:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    pull_policy: always
+    stdin_open: true
+    tty: true
+    restart: "no"
+    volumes:  # Mount local dir to container in order to access records.
+      - ./xml_files:/app/xml_files
